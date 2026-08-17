@@ -1,0 +1,25 @@
+{
+  "name": "restaurant-management-system",
+  "version": "1.0.0",
+  "description": "A backend Restaurant Management System developed using Node.js, Express.js, MongoDB, and Mongoose for the CodeAlpha Backend Development Internship.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "restaurant",
+    "management",
+    "nodejs",
+    "express",
+    "mongodb",
+    "mongoose",
+    "codealpha"
+  ],
+  "author": "Anjali Gandeti",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1",
+    "mongoose": "^9.9.2"
+  }
+}

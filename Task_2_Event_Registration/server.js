@@ -56,6 +56,32 @@ app.get("/events", async (req, res) => {
     }
 });
 
+// Get a single event by ID
+app.get("/events/:id", async (req, res) => {
+    try {
+        const event = await Event.findById(req.params.id);
+
+        if (!event) {
+            return res.status(404).json({
+                message: "Event not found"
+            });
+        }
+
+        res.status(200).json(event);
+    } catch (error) {
+        if (error.name === "CastError") {
+            return res.status(400).json({
+                message: "Invalid event ID"
+            });
+        }
+
+        res.status(500).json({
+            message: "Failed to fetch event",
+            error: error.message
+        });
+    }
+});
+
 // Register a participant
 app.post("/registrations", async (req, res) => {
     try {
@@ -124,6 +150,37 @@ app.get("/registrations", async (req, res) => {
     } catch (error) {
         res.status(500).json({
             message: "Failed to fetch registrations",
+            error: error.message
+        });
+    }
+});
+
+// Cancel a registration
+app.delete("/registrations/:id", async (req, res) => {
+    try {
+        const registration = await Registration.findByIdAndDelete(
+            req.params.id
+        );
+
+        if (!registration) {
+            return res.status(404).json({
+                message: "Registration not found"
+            });
+        }
+
+        res.status(200).json({
+            message: "Registration cancelled successfully",
+            registration: registration
+        });
+    } catch (error) {
+        if (error.name === "CastError") {
+            return res.status(400).json({
+                message: "Invalid registration ID"
+            });
+        }
+
+        res.status(500).json({
+            message: "Failed to cancel registration",
             error: error.message
         });
     }
